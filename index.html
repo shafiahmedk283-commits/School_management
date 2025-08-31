@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>School Management System (Admin)</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <aside class="sidebar">
+    <h2>school Management</h2>
+    <ul>
+      <li onclick="showSection('dashboard')">Dashboard</li>
+      <li onclick="showSection('students')">Students</li>
+      <li onclick="showSection('teachers')">Teachers</li>
+      <li onclick="showSection('library')">Library</li>
+      <li onclick="showSection('fees')">Fees</li>
+      <li onclick="showSection('results')">Results</li>
+      <li onclick="showSection('timetable')">Timetable</li>
+    </ul>
+  </aside>
+
+  <main class="content">
+    <!-- Dashboard -->
+    <section id="dashboard" class="page-section">
+      <h2>📊 Dashboard</h2>
+      <div class="stats">
+  <div class="card">👩‍🎓 Students: <span id="statStudents">0</span></div>
+  <div class="card">👨‍🏫 Teachers: <span id="statTeachers">0</span></div>
+  <div class="card">📚 Books: <span id="statBooks">0</span></div>
+  <div class="card">💰 Unpaid Fees: <span id="statUnpaid">0</span></div>
+</div>
+
+<!-- New Monthly Fees Report -->
+<div style="margin-top:20px;">
+  <input type="month" id="reportMonth">
+  <button class="btn-primary" onclick="exportFeesReport()">📄 Export Monthly Fees Report</button>
+</div>
+
+      <div class="top-bar" style="margin-top:12px;">
+        <div>
+          <button class="btn-primary" onclick="showMonthlyFeesReport()">📅 View Monthly Fee Report</button>
+          <button class="btn-primary" onclick="showMonthlyRecords()">📊 Monthly Records</button>
+        </div>
+      </div>
+
+      <h3 style="margin-top:18px;">⚠️ Unpaid Students</h3>
+      <div id="unpaidStudentsList" class="data-list"></div>
+
+      <!-- place for fee-report modal result will be the modal below -->
+    </section>
+
+    <!-- Students -->
+    <section id="students" class="page-section" style="display:none;">
+      <h2>👩‍🎓 Students</h2>
+      <div class="top-bar">
+        <button class="btn-primary" onclick="openStudentForm()">➕ Add Student</button>
+        <input type="text" id="searchStudents" placeholder="🔍 Search Student" onkeyup="filterStudents()">
+      </div>
+      <div id="studentsList" class="data-list"></div>
+    </section>
+
+    <!-- Teachers -->
+    <section id="teachers" class="page-section" style="display:none;">
+      <h2>👨‍🏫 Teachers</h2>
+      <div class="top-bar">
+        <button class="btn-primary" onclick="openTeacherForm()">➕ Add Teacher</button>
+        <input type="text" id="searchTeachers" placeholder="🔍 Search Teacher" onkeyup="filterTeachers()">
+      </div>
+      <div id="teachersList" class="data-list"></div>
+    </section>
+
+    <!-- Library -->
+    <section id="library" class="page-section" style="display:none;">
+      <h2>📚 Library</h2>
+      <div class="top-bar">
+        <button class="btn-primary" onclick="openBookForm()">➕ Add Book</button>
+        <input type="text" id="searchBooks" placeholder="🔍 Search Book" onkeyup="filterBooks()">
+      </div>
+      <div id="libraryList" class="data-list"></div>
+    </section>
+
+    <!-- Fees -->
+    <section id="fees" class="page-section" style="display:none;">
+      <h2>💰 Fees</h2>
+      <div class="top-bar">
+        <button class="btn-primary" onclick="openFeeForm()">➕ Add Fee</button>
+        <input type="text" id="searchFees" placeholder="🔍 Search Fee" onkeyup="filterFees()">
+      </div>
+      <div id="feesList" class="data-list"></div>
+    </section>
+
+    <!-- Results -->
+    <section id="results" class="page-section" style="display:none;">
+      <h2>📝 Results</h2>
+      <div class="top-bar">
+        <button class="btn-primary" onclick="openResultForm()">➕ Add Result</button>
+        <input type="text" id="searchResults" placeholder="🔍 Search Result" onkeyup="filterResults()">
+      </div>
+      <div id="resultsList" class="data-list"></div>
+    </section>
+
+    <!-- Timetable -->
+    <section id="timetable" class="page-section" style="display:none;">
+      <h2>📅 Timetable</h2>
+      <div class="top-bar">
+        <button class="btn-primary" onclick="openTimetableForm()">➕ Add Schedule</button>
+        <input type="text" id="searchTimetable" placeholder="🔍 Search Timetable" onkeyup="filterTimetable()">
+      </div>
+      <div id="timetableList" class="data-list"></div>
+    </section>
+  </main>
+
+  <!-- Modal Container (dynamic forms) -->
+  <div id="modalContainer"></div>
+
+  <!-- Monthly Fees Modal (static) -->
+  <div id="monthlyFeesModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span class="close" onclick="closeMonthlyFees()">&times;</span>
+      <h3>📅 Monthly Fee Report</h3>
+      <div style="margin: 10px 0;">
+        <button class="btn-primary" onclick="exportExcel()">⬇️ Export Excel</button>
+        <button class="btn-primary" onclick="exportPDF()">⬇️ Export PDF</button>
+      </div>
+      <div id="monthlyFeesTable" class="data-list"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
